@@ -8,7 +8,6 @@ import lib.tasks as ts
 
 df = pd.read_csv("")
 
-# (id, title, birthtime, duetime, done, desc)
 
 
 def main():

@@ -2,16 +2,17 @@
 # import os
 # import time
 
+# (id, title, birthtime, duetime, done, desc)
 
 class Task:
-    def __init__(self, no, task_file):
-        self.no = no
-        # populate task_name, description, due_time, birth_time
-        task_name = ""
-        description = ""
-        due_time = ""
-        birth_time = ""
-
-    def save(self):
-        """Save task to file"""
-        pass
+    def __init__(self, id, title, birthtime, duetime, done, desc):
+        self.id = id
+        self.title = title
+        self.birthtime = birthtime
+        self.duetime = duetime
+        self.done = done
+        self.desc = desc
+ 
+def save(taskList, file):
+   # Save the tasks to file
+   pass
