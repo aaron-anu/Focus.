@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 import tkinter as tk
 from tkinter import ttk
 import matplotlib.pyplot as m
@@ -9,6 +10,31 @@ from lib import tasks
 # Specify custom data directory. By default ../data/
 data_dir=None
 
+def addWindow(parent,taskFrame,dataframe):
+    add = tk.Toplevel(parent)
+    add.title("Add Window")
+    add.geometry("300x200")
+
+    tk.Label(add, text="Enter title of task: ").pack()
+    titleEntry=tk.Entry(add)
+    titleEntry.pack()
+    tk.Label(add, text="Enter description: ").pack()
+    descEntry=tk.Entry(add)
+    descEntry.pack()
+    tk.Label(add, text="Enter due time: ").pack()
+    dueEntry=tk.Entry(add)
+    dueEntry.pack()
+    
+    def saveTask():
+        title=titleEntry.get()
+        desc=descEntry.get()
+        
+        if not 
+        
+        dueTime=dateparser.parse(dueEntry.get())
+        
+        
+    tk.Button(add, text="Save", command=saveTask).pack()
 
 def main(data_dir):
 
@@ -22,7 +48,7 @@ def main(data_dir):
     if os.path.exists(tasksFilePath):
         tasksDataframe=pd.read_csv(tasksFilePath)
     else:
-        tasksDataframe = pd.DataFrame()
+        tasksDataframe = pd.DataFrame(columns=["title", "birthtime", "duetime", "done", "desc"])
         tasksDataframe.to_csv(tasksFilePath, index=False)
     
     # Initialize tkinter
@@ -38,12 +64,18 @@ def main(data_dir):
     taskFrame['border']=2
     taskFrame['relief']='ridge'
     
+    
+        
+    timerFrame = ttk.LabelFrame(root, text='Tasks ', padding=50)
+    timerFrame.grid(row=0,column=1)
+    
+    #Themed Tkinter
     sizegrip = ttk.Sizegrip(root)
     sizegrip.place(relx=1, rely=1, anchor=tk.SE)
     
-    tk.Label(text="Timer be here").grid(row=0,column=1)
-    for i in range(10):
-        tk.Label(taskFrame, text="Task"+str(i)).grid(row=i,column=0)
+    tk.Label(timerFrame,text="Timer be here").grid(row=0,column=1)
+
+    tk.Button(taskFrame, text='Add New Task',command=lambda: addWindow(root,taskFrame,tasksDataframe)).pack()
     
     
     root.mainloop()
