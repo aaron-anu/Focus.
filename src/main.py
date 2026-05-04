@@ -1,4 +1,5 @@
 import os
+import dateparser
 from datetime import datetime
 import tkinter as tk
 from tkinter import ttk
@@ -25,21 +26,31 @@ def addWindow(parent,taskFrame,dataframe):
     dueEntry=tk.Entry(add)
     dueEntry.pack()
     
-    def saveTask():
+    def saveTask(dataframe):
         title=titleEntry.get()
         desc=descEntry.get()
+        dueTime_Unparsed=dueEntry.get()
+        birthTime=datetime.now()
+        if dueTime_Unparsed:
+            dueTime=dateparser.parse(dueTime_Unparsed)
+        else:
+            dueTime=None
         
-        if not 
+        new_row = pd.DataFrame([{
+            "title": title,
+            "birthtime": birthTime,
+            "duetime": dueTime,
+            "done": False,
+            "desc": desc
+        }])
+        dataframe = pd.concat([dataframe, new_row], ignore_index=True)
         
-        dueTime=dateparser.parse(dueEntry.get())
-        
-        
-    tk.Button(add, text="Save", command=saveTask).pack()
+    tk.Button(add, text="Save", command=lambda: saveTask(dataframe)).pack()
 
 def main(data_dir):
 
     # create data dir
-    if data_dir == None:
+    if data_dir is None:
         data_dir = os.path.dirname(os.path.abspath(__file__)) + "/../data"
     if not os.path.exists(data_dir):
         os.mkdir(data_dir)
@@ -63,7 +74,6 @@ def main(data_dir):
     taskFrame.grid(row=0,column=0)
     taskFrame['border']=2
     taskFrame['relief']='ridge'
-    
     
         
     timerFrame = ttk.LabelFrame(root, text='Tasks ', padding=50)
